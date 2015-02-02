@@ -1,4 +1,4 @@
-// filebot -script "fn:amc" --output "X:/media" --action copy --conflict override --def subtitles=en music=y artwork=y "ut_dir=%D" "ut_file=%F" "ut_kind=%K" "ut_title=%N" "ut_label=%L" "ut_state=%S"
+// filebot -script "fn:amc" --output "/volume1/video" --action copy --conflict override --def subtitles=en music=y artwork=y "ut_dir=%D" "ut_file=%F" "ut_kind=%K" "ut_title=%N" "ut_label=%L" "ut_state=%S"
 
 
 // log input parameters
@@ -43,7 +43,7 @@ def minLengthMS = tryQuietly{ minLengthMS.toLong() }; if (minLengthMS == null) {
 
 // series/anime/movie format expressions
 def format = [
-	tvs:   tryQuietly{ seriesFormat } ?: '''TV Shows/{n}/{episode.special ? 'Special' : 'Season '+s.pad(2)}/{n} - {episode.special ? 'S00E'+special.pad(2) : s00e00} - {t.replaceAll(/[`´‘’ʻ]/, /'/).replaceAll(/[!?.]+$/).replacePart(', Part $1')}{'.'+lang}''',
+	tvs:   tryQuietly{ seriesFormat } ?: '''TV Shows/{n}/{episode.special ? 'Special' : 'Season '+s}/{episode.special ? 'S00E'+special.pad(2) : sxe.pad(2)} - {t.replaceAll(/[`´‘’ʻ]/, /'/).replaceAll(/[!?.]+$/).replacePart(', Part $1')}{'.'+lang}''',
 	anime: tryQuietly{ animeFormat  } ?: '''Anime/{primaryTitle}/{primaryTitle} - {sxe} - {t.replaceAll(/[!?.]+$/).replaceAll(/[`´‘’ʻ]/, /'/).replacePart(', Part $1')}''',
 	mov:   tryQuietly{ movieFormat  } ?: '''Movies/{n} ({y})/{n} ({y}){' CD'+pi}{'.'+lang}''',
 	music: tryQuietly{ musicFormat  } ?: '''Music/{n}/{album+'/'}{pi.pad(2)+'. '}{artist} - {t}'''
